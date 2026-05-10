@@ -1,6 +1,6 @@
-package com.hcl.hackathon.inventory.repository;
+package com.sansys.inventory.repository;
 
-import com.hcl.hackathon.inventory.model.Inventory;
+import com.sansys.inventory.model.Inventory;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

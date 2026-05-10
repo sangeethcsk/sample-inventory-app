@@ -1,4 +1,4 @@
-package com.hcl.hackathon.inventory.model;
+package com.sansys.inventory.model;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;

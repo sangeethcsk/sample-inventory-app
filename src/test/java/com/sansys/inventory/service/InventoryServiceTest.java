@@ -1,7 +1,7 @@
-package com.hcl.hackathon.inventory.service;
+package com.sansys.inventory.service;
 
-import com.hcl.hackathon.inventory.model.Inventory;
-import com.hcl.hackathon.inventory.model.InventorySearchParams;
+import com.sansys.inventory.model.Inventory;
+import com.sansys.inventory.model.InventorySearchParams;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

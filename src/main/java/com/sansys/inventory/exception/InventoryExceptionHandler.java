@@ -1,4 +1,4 @@
-package com.hcl.hackathon.inventory.exception;
+package com.sansys.inventory.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;

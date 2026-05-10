@@ -1,17 +1,15 @@
-package com.hcl.hackathon.inventory.controller;
+package com.sansys.inventory.controller;
 
-import com.hcl.hackathon.inventory.exception.InvalidDateRangeException;
-import com.hcl.hackathon.inventory.model.Inventory;
-import com.hcl.hackathon.inventory.model.InventorySearchParams;
-import com.hcl.hackathon.inventory.service.InventoryService;
+import com.sansys.inventory.exception.InvalidDateRangeException;
+import com.sansys.inventory.model.Inventory;
+import com.sansys.inventory.model.InventorySearchParams;
+import com.sansys.inventory.service.InventoryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.time.LocalDate;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package com.hcl.hackathon.inventory;
+package com.sansys.inventory;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

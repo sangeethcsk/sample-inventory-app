@@ -1,7 +1,7 @@
-package com.hcl.hackathon.inventory.service;
+package com.sansys.inventory.service;
 
-import com.hcl.hackathon.inventory.model.Inventory;
-import com.hcl.hackathon.inventory.model.InventorySearchParams;
+import com.sansys.inventory.model.Inventory;
+import com.sansys.inventory.model.InventorySearchParams;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.User;
