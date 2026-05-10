@@ -1,0 +1,119 @@
+openapi: 3.0.3
+info:
+  title: Inventory Service API
+  description: RESTful APIs for managing and searching inventory data.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local server
+paths:
+  /inventory/search:
+    post:
+      summary: Search inventory items
+      description: Search inventory items by ID, name, category, subcategory, etc., with pagination support.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: Inventory item ID
+                name:
+                  type: string
+                  description: Inventory item name
+                category:
+                  type: string
+                  description: Inventory category
+                subcategory:
+                  type: string
+                  description: Inventory subcategory
+                pageNumber:
+                  type: integer
+                  description: Page number for pagination
+                  example: 0
+                pageSize:
+                  type: integer
+                  description: Page size for pagination
+                  example: 10
+      responses:
+        '200':
+          description: Successful response with inventory items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        category:
+                          type: string
+                        subcategory:
+                          type: string
+                        mfgDate:
+                          type: string
+                        expDate:
+                          type: string
+                        specification:
+                          type: string
+                        price:
+                          type: string
+                        stock:
+                          type: string
+                        model:
+                          type: string
+                        seller:
+                          type: string
+                        location:
+                          type: string
+                  pageable:
+                    type: object
+                    properties:
+                      pageNumber:
+                        type: integer
+                      pageSize:
+                        type: integer
+                  totalElements:
+                    type: integer
+        '400':
+          description: Bad request due to invalid input parameters
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    Inventory:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        category:
+          type: string
+        subcategory:
+          type: string
+        mfgDate:
+          type: string
+        expDate:
+          type: string
+        specification:
+          type: string
+        price:
+          type: string
+        stock:
+          type: string
+        model:
+          type: string
+        seller:
+          type: string
+        location:
+          type: string
