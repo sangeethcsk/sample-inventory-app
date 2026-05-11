@@ -7,7 +7,7 @@ import com.sansys.inventory.service.InventoryService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageImpl;
+import org.springframework.data.web.PagedModel;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +21,7 @@ public class InventoryController
 {
     private final InventoryService inventoryService;
     @PostMapping("/search")
-    public PageImpl<Inventory> search(@Valid @RequestBody InventorySearchParams inventorySearchParams) throws InvalidDateRangeException
+    public PagedModel<Inventory> search(@Valid @RequestBody InventorySearchParams inventorySearchParams) throws InvalidDateRangeException
     {
         log.info("InventoryController:search - Received request to search Inventory");
         validateInputsAndThrow(inventorySearchParams);

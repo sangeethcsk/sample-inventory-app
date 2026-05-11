@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.web.PagedModel;
 
 import java.util.Collections;
 import java.util.List;
@@ -51,7 +52,7 @@ class InventoryServiceTest {
         when(mongoTemplate.count(any(Query.class), eq(Inventory.class))).thenReturn(1L);
 
         // Act
-        PageImpl<Inventory> result = inventoryService.search(params);
+        PagedModel<Inventory> result = inventoryService.search(params);
 
         // Assert
         assertNotNull(result);
@@ -70,12 +71,12 @@ class InventoryServiceTest {
         when(mongoTemplate.count(any(Query.class), eq(Inventory.class))).thenReturn(0L);
 
         // Act
-        PageImpl<Inventory> result = inventoryService.search(params);
+        PagedModel<Inventory> result = inventoryService.search(params);
 
         // Assert
         assertNotNull(result);
         assertTrue(result.getContent().isEmpty());
-        assertEquals(0, result.getTotalElements());
+        assertEquals(0, result.getMetadata().totalElements());
         verify(mongoTemplate, times(1)).find(any(Query.class), eq(Inventory.class));
     }
 }

@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.web.PagedModel;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -38,11 +39,10 @@ class InventoryControllerTest {
         params.setPageSize(10);
 
         Inventory inventory = new Inventory();
-        PageImpl<Inventory> mockPage = new PageImpl<>(Collections.singletonList(inventory));
-        when(inventoryService.search(params)).thenReturn(mockPage);
+        when(inventoryService.search(params)).thenReturn(new PagedModel<>(new PageImpl<>(Collections.singletonList(inventory))));
 
         // Act
-        PageImpl<Inventory> result = inventoryController.search(params);
+        PagedModel<Inventory> result = inventoryController.search(params);
 
         // Assert
         assertNotNull(result);
@@ -71,10 +71,10 @@ class InventoryControllerTest {
 
         Inventory inventory = new Inventory();
         PageImpl<Inventory> mockPage = new PageImpl<>(Collections.singletonList(inventory));
-        when(inventoryService.search(params)).thenReturn(mockPage);
+        when(inventoryService.search(params)).thenReturn(new PagedModel<>(new PageImpl<>(Collections.singletonList(inventory))));
 
         // Act
-        PageImpl<Inventory> result = inventoryController.search(params);
+        PagedModel<Inventory> result = inventoryController.search(params);
 
         // Assert
         assertNotNull(result);
@@ -92,11 +92,10 @@ class InventoryControllerTest {
         params.setPageSize(10);
 
         Inventory inventory = new Inventory();
-        PageImpl<Inventory> mockPage = new PageImpl<>(Collections.singletonList(inventory));
-        when(inventoryService.search(params)).thenReturn(mockPage);
+        when(inventoryService.search(params)).thenReturn(new PagedModel<>(new PageImpl<>(Collections.singletonList(inventory))));
 
         // Act
-        PageImpl<Inventory> result = inventoryController.search(params);
+        PagedModel<Inventory> result = inventoryController.search(params);
 
         // Assert
         assertNotNull(result);
@@ -111,11 +110,10 @@ class InventoryControllerTest {
         params.setPageNumber(0);
         params.setPageSize(10);
 
-        PageImpl<Inventory> mockPage = new PageImpl<>(Collections.emptyList());
-        when(inventoryService.search(params)).thenReturn(mockPage);
+        when(inventoryService.search(params)).thenReturn(new PagedModel<>(new PageImpl<>(Collections.emptyList())));
 
         // Act
-        PageImpl<Inventory> result = inventoryController.search(params);
+        PagedModel<Inventory> result = inventoryController.search(params);
 
         // Assert
         assertNotNull(result);

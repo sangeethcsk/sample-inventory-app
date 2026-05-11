@@ -4,13 +4,13 @@ import com.sansys.inventory.model.Inventory;
 import com.sansys.inventory.model.InventorySearchParams;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.web.PagedModel;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -24,7 +24,7 @@ public class InventoryService
 {
     private final MongoTemplate mongoTemplate;
 
-    public PageImpl<Inventory> search(InventorySearchParams inventorySearchParams)
+    public PagedModel<Inventory> search(InventorySearchParams inventorySearchParams)
     {
         Pageable pageable = PageRequest.of(inventorySearchParams.getPageNumber(), inventorySearchParams.getPageSize());
 
@@ -89,12 +89,12 @@ public class InventoryService
 
         log.info("InventoryService:search - Completed Building the Criteria");
 
-        List<Inventory> users = mongoTemplate.find(query.with(pageable), Inventory.class);
+        long count = mongoTemplate.count(query.skip(0).limit(0), Inventory.class);
 
-        long count = mongoTemplate.count(query.skip(0).limit(0), User.class);
+        List<Inventory> inventories = mongoTemplate.find(query.with(pageable), Inventory.class);
 
         log.info("InventoryService:search - Fetched " + count +  " records");
 
-        return new PageImpl<>(users, pageable, count);
+        return new PagedModel<>(new PageImpl<>(inventories, pageable, count));
     }
 }

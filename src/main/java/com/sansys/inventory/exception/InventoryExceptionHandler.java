@@ -1,5 +1,7 @@
 package com.sansys.inventory.exception;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class InventoryExceptionHandler {
@@ -48,11 +52,29 @@ public class InventoryExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Map<String, String>> handleInvalidJson(
-            HttpMessageNotReadableException ex) {
+            HttpMessageNotReadableException ex)
+    {
+        String message = "";
+        Throwable cause = ex.getCause();
+        if (cause instanceof InvalidFormatException invalidFormatException)
+        {
+            String fieldName = invalidFormatException
+                    .getPath()
+                    .stream()
+                    .map(JsonMappingException.Reference::getFieldName)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.joining("."));
+
+            message = String.format(
+                    "Invalid value '%s' for field '%s'. Expected format: yyyy-MM-dd",
+                    invalidFormatException.getValue(),
+                    fieldName
+            );
+        }
 
         Map<String, String> error = new HashMap<>();
-        error.put("error", "Invalid request");
-        error.put("message", ex.getMessage());
+        error.put("errorMessage", ex.getMostSpecificCause().getMessage());
+        error.put("message", message);
 
         return ResponseEntity.badRequest().body(error);
     }
